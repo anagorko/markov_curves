@@ -1,1 +1,1 @@
-# markov_graphs
+# Diagram generator for Markov curves
