@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+     http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d0" for="node" attr.name="color" attr.type="string">
+    <default>red</default>
+  </key>
+  <graph id="8" edgedefault="undirected">
+    <node id="a"/>
+    <node id="b"/>
+    <node id="c"/>
+    <node id="d"/>
+    <node id="e"/>
+    <node id="f"/>
+    <edge source="a" target="b"/>
+    <edge source="a" target="c"/>
+    <edge source="b" target="d"/>
+    <edge source="c" target="d"/>
+    <edge source="c" target="e"/>
+    <edge source="d" target="f"/>
+    <edge source="e" target="f"/>
+  </graph>
+  <graph id="1" edgedefault="undirected">
+    <node id="A"><data key="d0">blue</data></node>
+	<node id="B"><data key="d0">blue</data></node>
+	<node id="A.B"><data key="d0">blue</data></node>
+    <edge source="A" target="A.B"/>
+    <edge source="A.B" target="B"/>
+  </graph>
+
+  <graph id="map">
+    <edge source="a" target="A" directed="true"/>
+    <edge source="b" target="A" directed="true"/>
+    <edge source="c" target="A.B" directed="true"/>
+    <edge source="d" target="A.B" directed="true"/>
+    <edge source="e" target="B" directed="true"/>
+    <edge source="f" target="B" directed="true"/>
+  </graph>
+</graphml>
