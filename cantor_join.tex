@@ -1,0 +1,35 @@
+\documentclass[pdftex, 10pt]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{array}
+
+\begin{document}
+
+\newcommand{\w}{22mm}
+\renewcommand{\w}{22mm}
+\begin{longtable}{m{\w}m{2mm}m{\w}m{2mm}m{\w}m{2mm}m{\w}m{2mm}m{2cm}}
+	\includegraphics[width=\w]{diagrams/menger_0.jpg} &
+	$\leftarrow$ &
+	\includegraphics[width=\w]{diagrams/cantor_join_1.jpg} &
+	$\leftarrow$ &
+	\includegraphics[width=\w]{diagrams/cantor_join_2.jpg} &
+	$\leftarrow$ &
+    &
+    &
+    \\
+	& & & & & & & &
+    \\
+    &
+	$\leftarrow$ &
+	\includegraphics[width=\w]{diagrams/cantor_join_3.jpg} &
+	$\leftarrow$ &
+	\includegraphics[width=\w]{diagrams/cantor_join_4.jpg} &
+	$\leftarrow$ &
+	\includegraphics[width=\w]{diagrams/cantor_join_5.jpg} &
+	$\leftarrow$
+	& $\cdots$
+\end{longtable}
+
+\end{document}
+
