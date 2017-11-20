@@ -2,13 +2,13 @@
 
 This repository contains software that imlements diagram representations of Markov compacta as described in
 
-G. C. Bell, A. Nagórko "Detecting topological properties of Markov compacta with combinatorial properties of their diagrams"
+> G. C. Bell, A. Nagórko "Detecting topological properties of Markov compacta with combinatorial properties of their diagrams"
 
 ## Creating new diagrams
 
 Below we describe steps needed to extend `elementary.py` to generate diagrams and sequence for paper
 
-G. C. Bell, A. Nagórko "A construction of Nobeling manifolds of arbitrary weight"
+> G. C. Bell, A. Nagórko "A construction of Nobeling manifolds of arbitrary weight"
 
 Steps:
 
