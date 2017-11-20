@@ -8,7 +8,7 @@ G. C. Bell, A. Nagórko "Detecting topological properties of Markov compacta wit
 
 Below we describe steps needed to extend `elementary.py` to generate diagrams and sequence for paper
 
-G. C. Bell, A. Nagórko "A construction of {N}\"obeling manifolds of arbitrary weight"
+G. C. Bell, A. Nagórko "A construction of Nobeling manifolds of arbitrary weight"
 
 Steps:
 
