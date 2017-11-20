@@ -263,6 +263,125 @@ class MarkovSequence(object):
 	"""Holds a (finite) inverse sequence with corresponding decompositions"""
 
 ##########################################################################################################################
+# Nobeling n=1, kappa=3
+##########################################################################################################################
+
+class NobelingPoint(Production):
+	@classmethod
+	def init(cls):
+		cls.top = top = Graph()
+		a, b, c = top.add_vertex(), top.add_vertex(), top.add_vertex()
+		top.add_edge(a, b)
+		top.add_edge(b, c)
+		top.add_edge(a, c)
+		pos = top.new_vertex_property("vector<double>")
+		pos[a] = (-0,0)
+		pos[b] = (1,0.2)
+		pos[c] = (0.8, 0.6)
+		top.vp["pos"] = pos
+
+		cls.bottom = bot = Graph()
+		A = bot.add_vertex()
+		pos = bot.new_vertex_property("vector<double>")
+		pos[A] = (0, 0)
+		bot.vp["pos"] = pos
+
+		cls.bonding_map = Map(bot, top)
+		cls.bonding_map[a] = A
+		cls.bonding_map[b] = A
+		cls.bonding_map[c] = A
+NobelingPoint.init()
+
+class NobelingEdge(Production):
+	@classmethod
+	def init(cls):
+		cls.top = top = Graph()
+		a, b, c, d, e, f = top.add_vertex(), top.add_vertex(), top.add_vertex(), top.add_vertex(), top.add_vertex(), top.add_vertex()
+		top.add_edge_list([(a,b), (b,c), (a,c), (d,e), (d,f), (e,f), (a,d), (a,e), (a,f), (b,d), (b,e), (b,f), (c,d), (c,e), (c,f)])
+
+		pos = top.new_vertex_property("vector<double>")
+		pos[a] = (-1,0)
+		pos[b] = (0,0.2)
+		pos[c] = (-0.2, 0.6)
+		pos[d] = (1,0)
+		pos[e] = (2,0.2)
+		pos[f] = (1.8, 0.6)
+		top.vp["pos"] = pos
+
+		cls.bottom = bot = Graph()
+		A,B = bot.add_vertex(), bot.add_vertex()
+		pos = bot.new_vertex_property("vector<double>")
+		pos[A] = (-1, 0)
+		pos[B] = (1, 0)
+		bot.vp["pos"] = pos
+
+		cls.bonding_map = Map(bot, top)
+		cls.bonding_map[a] = A
+		cls.bonding_map[b] = A
+		cls.bonding_map[c] = A
+		cls.bonding_map[d] = B
+		cls.bonding_map[e] = B
+		cls.bonding_map[f] = B
+NobelingEdge.init()
+
+class NobelingGluing_Left(Gluing):
+	@classmethod
+	def init(cls):
+		g1 = NobelingPoint.get_top()
+		g2 = NobelingEdge.get_top()
+
+		cls.top_glue = tg = Map(g1, g2)
+		tg[g1.get_vertices()[0]] = g2.get_vertices()[0]
+		tg[g1.get_vertices()[1]] = g2.get_vertices()[1]
+		tg[g1.get_vertices()[2]] = g2.get_vertices()[2]
+
+		g1 = NobelingPoint.get_bottom()
+		g2 = NobelingEdge.get_bottom()
+		cls.bottom_glue = bg = Map(g1, g2)
+		bg[g1.get_vertices()[0]] = g2.get_vertices()[0]
+NobelingGluing_Left.init()
+
+class NobelingGluing_Right(Gluing):
+	@classmethod
+	def init(cls):
+		g1 = NobelingPoint.get_top()
+		g2 = NobelingEdge.get_top()
+
+		cls.top_glue = tg = Map(g1, g2)
+		tg[g1.get_vertices()[0]] = g2.get_vertices()[3]
+		tg[g1.get_vertices()[1]] = g2.get_vertices()[4]
+		tg[g1.get_vertices()[2]] = g2.get_vertices()[5]
+
+		g1 = NobelingPoint.get_bottom()
+		g2 = NobelingEdge.get_bottom()
+		cls.bottom_glue = bg = Map(g1, g2)
+		bg[g1.get_vertices()[0]] = g2.get_vertices()[1]
+NobelingGluing_Right.init()
+
+class NobelingDiagram(ElementaryMarkovDiagram):
+	@classmethod
+	def init(cls):
+		cls.starting_graph = g = Graph(directed=False)
+		pos = g.new_vertex_property("vector<double>")
+		a=g.add_vertex()
+		pos[a] = (0,1)
+		b=g.add_vertex()
+		pos[b] = (0,-1)
+		g.add_edge(a,b)
+		g.vp["pos"] = pos
+
+		cls.productions = {
+			"V": NobelingPoint,
+			"E": NobelingEdge
+		}
+		cls.gluings = {
+		 	"L": NobelingGluing_Left, 
+			"R": NobelingGluing_Right
+		}
+NobelingDiagram.init()
+
+
+##########################################################################################################################
 # Menger Curve "18" Sequence
 ##########################################################################################################################
 
@@ -736,13 +855,53 @@ def generate_Diamond_diagram(w, h):
 		graph_draw(g[i], edge_pen_width=width, vertex_size=size, vertex_color=color, vertex_fill_color=color, pos=sfdp_layout(g[i]), output_size=(w,h), fit_view=True, output="diagrams/diamond_sfdp_"+str(i)+".png")
 		i = i + 1
 
+
+def generate_Nobeling_diagram(w, h):
+	n = 3
+	m = [ 1.0, 0.4, 0.4 * 0.4, 0.4 * 0.4 * 0.4, 0.4 * 0.4 * 0.4 * 0.3, 0.4 * 0.4 * 0.4 * 0.3 * 0.3 ]
+	sz = [ 0.02, 0.02, 0.015, 0.015, 0.002, 0.001 ]
+	g = dict()
+	i = 0
+	g[i] = NobelingDiagram.starting_graph
+
+	lay = [ [(1.0, 0.0), (0.0, 0.8)], [(1.0, 0.0), (0.0, 0.8)], [(0.0, 1.0), (0.8, 0.0)] ]
+
+	while i < n:
+		d = NobelingDiagram.decompose(g[i])
+		d.assemble()
+		d.layout((lay[i][0][0]*m[i],lay[i][0][1]*m[i]), (lay[i][1][0]*m[i],lay[i][1][1]*m[i]))
+		i = i + 1
+		g[i] = d.upper_graph
+
+	i = 0
+	while i < n:
+		print i
+		size = g[i].new_vertex_property("float")
+		color = g[i].new_vertex_property("vector<float>")
+		width = g[i].new_edge_property("float")
+
+		for v in g[i].vertices():
+			size[v] = sz[i] * w
+
+			color[v] = [0., 0., 0., 1.]
+
+			g[i].vp.pos[v][0] = g[i].vp.pos[v][0] * w/3.34 + w/2
+			g[i].vp.pos[v][1] = g[i].vp.pos[v][1] * h/3.34 + h/2
+
+		for e in g[i].edges():
+			width[e] = sz[i] * w * 0.4
+
+		graph_draw(g[i], vertex_size=size, vertex_color=color, vertex_fill_color=color, pos=g[i].vp.pos, output_size=(w,h), fit_view=False, output="diagrams/nobeling_"+str(i)+".png")
+		graph_draw(g[i], edge_pen_width=width, vertex_size=size, vertex_color=color, vertex_fill_color=color, pos=sfdp_layout(g[i]), output_size=(w,h), fit_view=True, output="diagrams/nobeling_sfdp_"+str(i)+".png")
+		i = i + 1
 	
 ############################
 
 print colored("Elementary Markov Sequence Generator", 'blue')
 
-generate_CantorJoin_diagram(1000,1000)
-generate_Cantor_diagram(40,1600)
-generate_Menger18_diagram(1000,1000)
-generate_Diamond_diagram(1000,1000)
+#generate_CantorJoin_diagram(1000,1000)
+#generate_Cantor_diagram(40,1600)
+#generate_Menger18_diagram(1000,1000)
+#generate_Diamond_diagram(1000,1000)
+generate_Nobeling_diagram(1000,1000)
 
