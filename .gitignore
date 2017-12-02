@@ -1,0 +1,4 @@
+diagrams/*
+*.aux
+*.log
+*~
