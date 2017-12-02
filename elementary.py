@@ -859,7 +859,7 @@ def generate_Diamond_diagram(w, h):
 def generate_Nobeling_diagram(w, h):
 	n = 3
 	m = [ 1.0, 0.4, 0.4 * 0.4, 0.4 * 0.4 * 0.4, 0.4 * 0.4 * 0.4 * 0.3, 0.4 * 0.4 * 0.4 * 0.3 * 0.3 ]
-	sz = [ 0.02, 0.02, 0.015, 0.015, 0.002, 0.001 ]
+	sz = [ 0.01, 0.01, 0.01, 0.01, 0.01, 0.01 ]
 	g = dict()
 	i = 0
 	g[i] = NobelingDiagram.starting_graph
@@ -888,10 +888,10 @@ def generate_Nobeling_diagram(w, h):
 			g[i].vp.pos[v][0] = g[i].vp.pos[v][0] * w/3.34 + w/2
 			g[i].vp.pos[v][1] = g[i].vp.pos[v][1] * h/3.34 + h/2
 
-		for e in g[i].edges():
-			width[e] = sz[i] * w * 0.4
+		for e in g[i].edges(): 
+			width[e] = sz[i] * w * 0.2
 
-		graph_draw(g[i], vertex_size=size, vertex_color=color, vertex_fill_color=color, pos=g[i].vp.pos, output_size=(w,h), fit_view=False, output="diagrams/nobeling_"+str(i)+".png")
+		graph_draw(g[i], edge_pen_width=width, edge_color=[0., 0., 0., 1.], vertex_size=size, vertex_color=color, vertex_fill_color=color, pos=g[i].vp.pos, output_size=(w,h), fit_view=True, output="diagrams/nobeling_"+str(i)+".png")
 		graph_draw(g[i], edge_pen_width=width, vertex_size=size, vertex_color=color, vertex_fill_color=color, pos=sfdp_layout(g[i]), output_size=(w,h), fit_view=True, output="diagrams/nobeling_sfdp_"+str(i)+".png")
 		i = i + 1
 	
@@ -899,9 +899,9 @@ def generate_Nobeling_diagram(w, h):
 
 print colored("Elementary Markov Sequence Generator", 'blue')
 
-#generate_CantorJoin_diagram(1000,1000)
-#generate_Cantor_diagram(40,1600)
-#generate_Menger18_diagram(1000,1000)
-#generate_Diamond_diagram(1000,1000)
-generate_Nobeling_diagram(1000,1000)
+generate_CantorJoin_diagram(1000,1000)
+generate_Cantor_diagram(40,1600)
+generate_Menger18_diagram(1000,1000)
+generate_Diamond_diagram(1000,1000)
+generate_Nobeling_diagram(2000,2000)
 
