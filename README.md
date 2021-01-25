@@ -1,10 +1,29 @@
-# Diagram generator for Markov curves
+# Markov curves
+
+## Markov complexes
+
+The new codebase is under development. Section "Diagram generator for Markov curves" below contains information about the old version.
+
+### Installation
+
+Create and activate a new virtual environment.
+```
+python3 -m venv ~/envs/markov_curves/
+source ~/envs/markov_curves/bin/activate
+```
+
+Install dependencies
+```
+python3 -m pip install -r requirements.txt
+```
+
+## Diagram generator for Markov curves
 
 This repository contains software that imlements diagram representations of Markov compacta as described in
 
 > G. C. Bell, A. Nagórko "Detecting topological properties of Markov compacta with combinatorial properties of their diagrams"
 
-## Creating new diagrams
+### Creating new diagrams
 
 Below we describe steps needed to extend `elementary.py` to generate diagrams and sequence for paper
 
@@ -16,9 +35,9 @@ Steps:
 * For each gluing, define a subclass of the `Gluing` class. Here we defined `NobelingGluing_Left` and `NobelingGluing_Right` for gluing `NobelingPoint` production over left and right end of `NobelingEdge`.
 * Create subclass of `ElementaryMarkovDiagram` that contains information about the starting graph, productions and gluings.
 
-### Implementation Details
+#### Implementation Details
 
-#### Productions
+##### Productions
 
 ```python
 class NobelingPoint(Production):
@@ -80,7 +99,7 @@ class NobelingEdge(Production):
 NobelingEdge.init()
 ```
 
-#### Gluings
+##### Gluings
 
 ```python
 class NobelingGluing_Left(Gluing):
@@ -118,7 +137,7 @@ class NobelingGluing_Right(Gluing):
 NobelingGluing_Right.init()
 ```
 
-#### Diagram class
+##### Diagram class
 
 ```python
 class NobelingDiagram(ElementaryMarkovDiagram):
@@ -144,7 +163,7 @@ class NobelingDiagram(ElementaryMarkovDiagram):
 NobelingDiagram.init()
 ```
 
-## Installation
+### Installation
 
 Run `make` to generate diagrams.
 
