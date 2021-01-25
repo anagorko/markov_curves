@@ -2,7 +2,7 @@
 
 ## Markov complexes
 
-The new codebase is under development. Section "Diagram generator for Markov curves" below contains information about the old version.
+The new codebase is under development. Section "Diagram generator for Markov curves" below contains information about the earlier approach.
 
 ### Installation
 
@@ -17,7 +17,7 @@ Install dependencies
 python3 -m pip install -r requirements.txt
 ```
 
-## Diagram generator for Markov curves
+## Diagram generator for Markov curves (old approach)
 
 This repository contains software that imlements diagram representations of Markov compacta as described in
 
